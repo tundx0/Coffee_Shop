@@ -196,10 +196,10 @@ def auth_error(error):
             {
                 "success": False,
                 "error": error.status_code,
-                "message": "Unauthorized Access",
+                "message": error.error,
             }
         ),
-        401,
+        error.status_code,
     )
 
 
