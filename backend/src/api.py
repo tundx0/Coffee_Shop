@@ -38,7 +38,7 @@ def get_drinks():
     try:
         drinks = Drink.query.all()
 
-        return jsonify({"success": True, "drinks": [drink.long() for drink in drinks]})
+        return jsonify({"success": True, "drinks": [drink.short() for drink in drinks]})
     except:
         abort(422)
 
@@ -135,6 +135,20 @@ def edit_drink(token, id):
     returns status code 200 and json {"success": True, "delete": id} where id is the id of the deleted record
         or appropriate status code indicating reason for failure
 """
+
+
+@app.route("/drinks/<int:id>", methods=["DELETE"])
+@requires_auth("delete:drinks")
+def delete_drink(token, id):
+    drink = Drink.query.get(id)
+    if drink:
+        try:
+            drink.delete()
+            return jsonify({"success": True, "delete": drink.id})
+        except:
+            abort(422)
+    else:
+        abort(404)
 
 
 # Error Handling
