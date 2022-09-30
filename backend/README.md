@@ -38,6 +38,7 @@ Each time you open a new terminal session, run:
 
 ```bash
 export FLASK_APP=api.py;
+export FLASK_DEBUG=True;
 ```
 
 To run the server, execute:
